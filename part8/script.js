@@ -1,24 +1,24 @@
 // "use strict";
 
-const btn = document.querySelector(".btn-country");
-const countriesContainer = document.querySelector(".countries");
+// const btn = document.querySelector(".btn-country");
+// const countriesContainer = document.querySelector(".countries");
 
-const renderCountry = function (data, className) {
-  const html = `        <article class="country ${className}">
-  <img class="country__img" src="${data.flag}" />
-  <div class="country__data">
-    <h3 class="country__name">${data.name}</h3>
-    <h4 class="country__region">${data.region}</h4>
-    <p class="country__row"><span>👫</span>${(
-      +data.population / 1000000
-    ).toFixed(1)}M poeple</p>
-    <p class="country__row"><span>💰</span>${data.currencies[0]?.name}</p>
-    <p class="country__row"><span>🗣️</span>${data.languages[0]?.name}</p>
-  </div>
-</article>`;
-  countriesContainer.insertAdjacentHTML("beforeend", html);
-  countriesContainer.style.opacity = 1;
-};
+// const renderCountry = function (data, className) {
+//   const html = `        <article class="country ${className}">
+//   <img class="country__img" src="${data.flag}" />
+//   <div class="country__data">
+//     <h3 class="country__name">${data.name}</h3>
+//     <h4 class="country__region">${data.region}</h4>
+//     <p class="country__row"><span>👫</span>${(
+//       +data.population / 1000000
+//     ).toFixed(1)}M poeple</p>
+//     <p class="country__row"><span>💰</span>${data.currencies[0]?.name}</p>
+//     <p class="country__row"><span>🗣️</span>${data.languages[0]?.name}</p>
+//   </div>
+// </article>`;
+//   countriesContainer.insertAdjacentHTML("beforeend", html);
+//   countriesContainer.style.opacity = 1;
+// };
 // const getCountryAndNeighbour = function (country) {
 //   // AJAX call country 1
 //   const request = new XMLHttpRequest();
@@ -71,13 +71,13 @@ const renderCountry = function (data, className) {
 //   countriesContainer.style.opacity = 1;
 // };
 
-// const getJSON = function (url, errMsg = "Something went wrong") {
-//   return fetch(url).then((response) => {
-//     if (!response.ok) throw new Error(`${errMsg} (${response.status})`);
+const getJSON = function (url, errMsg = "Something went wrong") {
+  return fetch(url).then((response) => {
+    if (!response.ok) throw new Error(`${errMsg} (${response.status})`);
 
-//     return response.json();
-//   });
-// };
+    return response.json();
+  });
+};
 // const getCountryData = function (country) {
 //   // Country 1
 //   getJSON(`https://restcountries.com/v2/name/${country}`, "Country not found")
@@ -159,10 +159,48 @@ const renderCountry = function (data, className) {
 // Promise.resolve("abc").then((x) => console.log(x));
 // Promise.reject("abc").catch((x) => console.error(x));
 
-const getPosition = function () {
-  return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-};
+// const getPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
 
-getPosition().then((res) => console.log(res));
+// getPosition().then((res) => console.log(res));
+
+// const whereAmI = async function (country) {
+//   const res = await fetch(`https://restcountries.com/v2/name/${country}`);
+//   // *await keyword* makes execution await until promise is fulfilled.
+//   console.log(res);
+// };
+// whereAmI("portugal");
+// console.log("First ");
+
+// const get3Countries = async function (c1, c2, c3) {
+//   try {
+//     // const [data1] = await getJSON(`https://restcountries.com/v2/name/${c1}`);
+//     // const [data2] = await getJSON(`https://restcountries.com/v2/name/${c2}`);
+//     // const [data3] = await getJSON(`https://restcountries.com/v2/name/${c3}`);
+
+//     const data = await Promise.all([
+//       getJSON(`https://restcountries.com/v2/name/${c1}`),
+//       getJSON(`https://restcountries.com/v2/name/${c2}`),
+//       getJSON(`https://restcountries.com/v2/name/${c3}`),
+//     ]);
+
+//     console.log(data.map((d) => d[0].capital));
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
+
+// get3Countries("portugal", "canada", "tanzania");
+
+// Promise.race
+(async function () {
+  const res = await Promise.race([
+    getJSON(`https://restcountries.com/v2/name/canada`),
+    getJSON(`https://restcountries.com/v2/name/egypt`),
+    getJSON(`https://restcountries.com/v2/name/portugal`),
+  ]);
+  console.log(res[0]);
+})();
