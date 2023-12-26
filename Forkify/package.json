@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/core-js": "^2.5.8",
+    "@types/regenerator-runtime": "^0.13.5",
     "parcel": "^2.10.3",
     "sass": "^1.69.5"
   },
